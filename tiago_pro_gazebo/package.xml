@@ -11,7 +11,7 @@
 
   <buildtool_depend>ament_cmake_auto</buildtool_depend>
 
-  <exec_depend>gazebo_plugins</exec_depend>
+  <exec_depend>gz_plugins_vendor</exec_depend>
   <exec_depend>pal_gazebo_plugins</exec_depend>
   <exec_depend>pal_gazebo_worlds</exec_depend>
   <exec_depend>pal_maps</exec_depend>
@@ -26,8 +26,8 @@
   <exec_depend>tiago_pro_laser_sensors</exec_depend>
   <exec_depend>tiago_pro_rgbd_sensors</exec_depend>
   <exec_depend>pal_urdf_utils</exec_depend>
-  <exec_depend>gazebo_ros2_control</exec_depend>
-  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gz_ros2_control</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
   <exec_depend condition="$PAL_DISTRO >= alum">robot_info_publisher</exec_depend>
 
   <exec_depend>launch</exec_depend>

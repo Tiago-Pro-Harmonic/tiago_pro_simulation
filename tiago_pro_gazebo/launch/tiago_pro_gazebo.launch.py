@@ -71,6 +71,7 @@ class LaunchArguments(LaunchArgumentsBase):
     world_name: DeclareLaunchArgument = CommonArgs.world_name
     tuck_arm: DeclareLaunchArgument = CommonArgs.tuck_arm
     is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
+    gazebo_version: DeclareLaunchArgument = CommonArgs.gazebo_version
     namespace: DeclareLaunchArgument = CommonArgs.namespace
     rviz: DeclareLaunchArgument = CommonArgs.rviz
     gzclient: DeclareLaunchArgument = CommonArgs.gzclient
@@ -105,18 +106,17 @@ def gazebo(context, *args, **kwargs):
 
     model_path = get_model_paths(packages)
 
-    gazebo_model_path_env_var = SetEnvironmentVariable(
-        'GAZEBO_MODEL_PATH', model_path)
+    gz_model_path_env_var = SetEnvironmentVariable(
+        'GZ_SIM_RESOURCE_PATH', model_path)
+    
+    actions.append(gz_model_path_env_var) 
 
     gazebo = include_scoped_launch_py_description(
-        pkg_name='pal_gazebo_worlds',
-        paths=['launch', 'pal_gazebo.launch.py'],
-        env_vars=[gazebo_model_path_env_var],
+        pkg_name='br2_gazebo_worlds',
+        paths=['launch', 'br2_gazebo.launch.py'],
+        env_vars=[gz_model_path_env_var],
         launch_arguments={
             'world_name':  world_name,
-            'model_paths': packages,
-            'resource_paths': packages,
-            'gzclient': gzclient,
         },
         condition=UnlessNodeRunning('gazebo')
     )
@@ -223,6 +223,7 @@ def declare_actions(
             'camera_model': launch_args.camera_model,
             'base_type': launch_args.base_type,
             'is_public_sim': launch_args.is_public_sim,
+            'gazebo_version': launch_args.gazebo_version,
             'has_teleop_arms': launch_args.has_teleop_arms,
             'has_wrist_camera': launch_args.has_wrist_camera}
     )
@@ -253,7 +254,7 @@ def get_model_paths(packages_names):
 
         model_paths += model_path
 
-    if 'GAZEBO_MODEL_PATH' in environ:
-        model_paths += pathsep + environ['GAZEBO_MODEL_PATH']
+    if 'GZ_SIM_RESOURCE_PATH' in environ:
+        model_paths += pathsep + environ['GZ_SIM_RESOURCE_PATH']
 
     return model_paths
