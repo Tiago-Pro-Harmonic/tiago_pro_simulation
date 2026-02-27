@@ -44,7 +44,7 @@ def generate_launch_description():
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
     
-    # sim_dir = get_package_share_directory('tiago_pro_bringup')
+    sim_dir = get_package_share_directory('tiago_pro_bringup')
     
     gazebo_spawn_robot = Node(
         package="ros_gz_sim",
@@ -58,20 +58,28 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
     
     launch_description.add_action(gazebo_spawn_robot)
     
-    # bridge = Node(
-    #     package='ros_gz_bridge',
-    #     executable='parameter_bridge',
-    #     name='bridge_ros_gz',
-    #     parameters=[
-    #         {
-    #             'config_file': os.path.join(
-    #                 sim_dir, 'config/bridge', 'tiago_pro_bridge.yaml'
-    #             ),
-    #             'use_sim_time': True,
-    #         }
-    #     ],
-    #     output='screen',
-    # )
-    # launch_description.add_action(bridge)
+    bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='bridge_ros_gz',
+        parameters=[
+            {
+                'config_file': os.path.join(
+                    sim_dir, 'config/bridge', 'tiago_pro_bridge.yaml'
+                ),
+                'use_sim_time': True,
+            }
+        ],
+        output='screen',
+    )
+    launch_description.add_action(bridge)
+    
+    camera_image_bridge = Node(
+        package='ros_gz_image',
+        executable='image_bridge',
+        arguments=['/head_front_camera/depth/image_rect_raw'],
+        output='screen',
+    )
+    launch_description.add_action(camera_image_bridge)
 
     return

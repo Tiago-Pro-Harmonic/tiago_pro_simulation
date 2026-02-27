@@ -140,62 +140,62 @@ def declare_actions(
 
     launch_description.add_action(OpaqueFunction(function=gazebo))
 
-    public_navigation_launch = include_scoped_launch_py_description(
-        condition=IfCondition(AndSubstitution(
-            LaunchConfiguration('is_public_sim'), LaunchConfiguration('navigation'))
-        ),
-        pkg_name='tiago_pro_gazebo',
-        paths=['launch', 'navigation_public_sim.launch.py'],
-        launch_arguments={
-            'world_name': launch_args.world_name,
-            'slam': launch_args.slam,
-            'use_sim_time': LaunchConfiguration('use_sim_time'),
-            'rviz': launch_args.rviz,
-        },
-    )
-    launch_description.add_action(public_navigation_launch)
+    # public_navigation_launch = include_scoped_launch_py_description(
+    #     condition=IfCondition(AndSubstitution(
+    #         LaunchConfiguration('is_public_sim'), LaunchConfiguration('navigation'))
+    #     ),
+    #     pkg_name='tiago_pro_gazebo',
+    #     paths=['launch', 'navigation_public_sim.launch.py'],
+    #     launch_arguments={
+    #         'world_name': launch_args.world_name,
+    #         'slam': launch_args.slam,
+    #         'use_sim_time': LaunchConfiguration('use_sim_time'),
+    #         'rviz': launch_args.rviz,
+    #     },
+    # )
+    # launch_description.add_action(public_navigation_launch)
 
-    private_navigation_launch = include_scoped_launch_py_description(
-        condition=IfCondition(AndSubstitution(
-            NotSubstitution(LaunchConfiguration('is_public_sim')),
-            LaunchConfiguration('navigation'))
-        ),
-        pkg_name='tiago_pro_gazebo',
-        paths=['launch', 'navigation_private_sim.launch.py'],
-        launch_arguments={
-            'namespace': launch_args.namespace,
-            'camera_model': launch_args.camera_model,
-            'base_type': launch_args.base_type,
-            'laser_model': launch_args.laser_model,
-            'docking': launch_args.docking,
-            'slam': launch_args.slam,
-            'advanced_navigation': launch_args.advanced_navigation,
-            'use_sim_time': LaunchConfiguration('use_sim_time'),
-            'rviz': launch_args.rviz,
-        },
-    )
-    launch_description.add_action(private_navigation_launch)
+    # private_navigation_launch = include_scoped_launch_py_description(
+    #     condition=IfCondition(AndSubstitution(
+    #         NotSubstitution(LaunchConfiguration('is_public_sim')),
+    #         LaunchConfiguration('navigation'))
+    #     ),
+    #     pkg_name='tiago_pro_gazebo',
+    #     paths=['launch', 'navigation_private_sim.launch.py'],
+    #     launch_arguments={
+    #         'namespace': launch_args.namespace,
+    #         'camera_model': launch_args.camera_model,
+    #         'base_type': launch_args.base_type,
+    #         'laser_model': launch_args.laser_model,
+    #         'docking': launch_args.docking,
+    #         'slam': launch_args.slam,
+    #         'advanced_navigation': launch_args.advanced_navigation,
+    #         'use_sim_time': LaunchConfiguration('use_sim_time'),
+    #         'rviz': launch_args.rviz,
+    #     },
+    # )
+    # launch_description.add_action(private_navigation_launch)
 
-    move_group = include_scoped_launch_py_description(
-        pkg_name='tiago_pro_moveit_config',
-        paths=['launch', 'move_group.launch.py'],
-        launch_arguments={
-            'robot_name': robot_name,
-            'use_sim_time': LaunchConfiguration('use_sim_time'),
-            'base_type': launch_args.base_type,
-            'arm_type_right': launch_args.arm_type_right,
-            'arm_type_left': launch_args.arm_type_left,
-            'end_effector_right': launch_args.end_effector_right,
-            'end_effector_left': launch_args.end_effector_left,
-            'ft_sensor_right': launch_args.ft_sensor_right,
-            'ft_sensor_left': launch_args.ft_sensor_left,
-            'ft_sensor_teleop_right': launch_args.ft_sensor_teleop_right,
-            'ft_sensor_teleop_left': launch_args.ft_sensor_teleop_left,
-            'has_teleop_arms': launch_args.has_teleop_arms,
-        },
-        condition=IfCondition(LaunchConfiguration('moveit')))
+    # move_group = include_scoped_launch_py_description(
+    #     pkg_name='tiago_pro_moveit_config',
+    #     paths=['launch', 'move_group.launch.py'],
+    #     launch_arguments={
+    #         'robot_name': robot_name,
+    #         'use_sim_time': LaunchConfiguration('use_sim_time'),
+    #         'base_type': launch_args.base_type,
+    #         'arm_type_right': launch_args.arm_type_right,
+    #         'arm_type_left': launch_args.arm_type_left,
+    #         'end_effector_right': launch_args.end_effector_right,
+    #         'end_effector_left': launch_args.end_effector_left,
+    #         'ft_sensor_right': launch_args.ft_sensor_right,
+    #         'ft_sensor_left': launch_args.ft_sensor_left,
+    #         'ft_sensor_teleop_right': launch_args.ft_sensor_teleop_right,
+    #         'ft_sensor_teleop_left': launch_args.ft_sensor_teleop_left,
+    #         'has_teleop_arms': launch_args.has_teleop_arms,
+    #     },
+    #     condition=IfCondition(LaunchConfiguration('moveit')))
 
-    launch_description.add_action(move_group)
+    # launch_description.add_action(move_group)
 
     robot_spawn = include_scoped_launch_py_description(
         pkg_name='tiago_pro_gazebo',
@@ -230,15 +230,15 @@ def declare_actions(
 
     launch_description.add_action(tiago_bringup)
 
-    tuck_arm = Node(
-        package='tiago_pro_gazebo',
-        executable='tuck_arm.py',
-        emulate_tty=True,
-        output='both',
-        condition=IfCondition(LaunchConfiguration('tuck_arm'))
-    )
+    # tuck_arm = Node(
+    #     package='tiago_pro_gazebo',
+    #     executable='tuck_arm.py',
+    #     emulate_tty=True,
+    #     output='both',
+    #     condition=IfCondition(LaunchConfiguration('tuck_arm'))
+    # )
 
-    launch_description.add_action(tuck_arm)
+    # launch_description.add_action(tuck_arm)
 
     return
 
