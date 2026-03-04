@@ -11,7 +11,7 @@
 
   <buildtool_depend>ament_cmake_auto</buildtool_depend>
 
-  <exec_depend>gz_plugins_vendor</exec_depend>
+  <exec_depend>gz_plugin_vendor</exec_depend>
   <exec_depend>pal_gazebo_plugins</exec_depend>
   <exec_depend>pal_gazebo_worlds</exec_depend>
   <exec_depend>pal_maps</exec_depend>
