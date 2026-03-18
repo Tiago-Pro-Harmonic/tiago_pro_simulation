@@ -116,7 +116,8 @@ def gazebo(context, *args, **kwargs):
         paths=['launch', 'br2_gazebo.launch.py'],
         env_vars=[gz_model_path_env_var],
         launch_arguments={
-            'world_name':  world_name,
+            'world_name': world_name,
+            'gzclient': gzclient,
         },
         condition=UnlessNodeRunning('gazebo')
     )
