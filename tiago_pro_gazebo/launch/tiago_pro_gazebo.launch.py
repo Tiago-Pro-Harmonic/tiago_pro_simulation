@@ -231,6 +231,19 @@ def declare_actions(
 
     launch_description.add_action(tiago_bringup)
 
+    # Mimic relay: enforces gripper mimic joints in simulation.
+    # sdformat_urdf drops URDF <mimic> tags so Gazebo physics ignores them.
+    # This node reads the actuated finger joint and drives the mimic joints
+    # via gripper_{side}_mimic_controller (ForwardCommandController).
+    gripper_mimic_relay = Node(
+        package='tiago_pro_gazebo',
+        executable='gripper_mimic_relay.py',
+        name='gripper_mimic_relay',
+        parameters=[{'use_sim_time': True}],
+        output='screen',
+    )
+    launch_description.add_action(gripper_mimic_relay)
+
     # tuck_arm = Node(
     #     package='tiago_pro_gazebo',
     #     executable='tuck_arm.py',

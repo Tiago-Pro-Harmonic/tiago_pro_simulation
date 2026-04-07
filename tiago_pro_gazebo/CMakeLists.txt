@@ -5,7 +5,9 @@ find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
 install(
-  PROGRAMS scripts/tuck_arm.py
+  PROGRAMS
+    scripts/tuck_arm.py
+    scripts/gripper_mimic_relay.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
